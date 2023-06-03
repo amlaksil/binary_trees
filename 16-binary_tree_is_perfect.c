@@ -14,10 +14,13 @@ int binary_tree_is_perfect(const binary_tree_t *tree)
 		return (0);
 	/**
 	 * For perfect binary tree the number of leaf nodes is a power of 2^n and
-	 * No.of leaf nodes == No. of none-leaf nodes + 1
+	 * No.of leaf nodes == No. of none-leaf nodes + 1.
+	 * A tree with only the root node is also a perfect binary tree
 	 */
 	num_none_leaf_nodes = binary_tree_nodes(tree);
 	num_leaf_nodes = binary_tree_leaves(tree);
+	if (!tree->left && !tree->right && tree->parent == NULL)
+		return (1);
 	if ((num_leaf_nodes == num_none_leaf_nodes + 1) && (num_leaf_nodes % 2 == 0))
 		return (1);
 	else
