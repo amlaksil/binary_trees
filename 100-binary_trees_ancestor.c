@@ -20,9 +20,9 @@ binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
 	if (first->parent == NULL || second->parent == NULL)
 		return (NULL);
 	if (first->parent == second)
-		return ((void *)second);
+		return ((binary_tree_t *)second);
 	if (second->parent == first)
-		return ((void *)first);
+		return ((binary_tree_t *)first);
 	/**
 	 * Lowest common ancestor in a binary tree can be found by storing paths
 	 * from first parent to the root node and second parent to the root node. And
