@@ -11,39 +11,29 @@
 binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
 		const binary_tree_t *second)
 {
-	binary_tree_t *fp[1024];
-	binary_tree_t *sp[1024];
-	int i = 0, j = 0, m = 0, k, n;
-
 	if (!first || !second)
 		return (NULL);
 	if (first->parent == NULL || second->parent == NULL)
 		return (NULL);
-	if (first->parent == second)
-		return ((binary_tree_t *)second);
-	if (second->parent == first)
-		return ((binary_tree_t *)first);
 	/**
-	 * Lowest common ancestor in a binary tree can be found by storing paths
-	 * from first parent to the root node and second parent to the root node. And
-	 * then look simultaneously into the values stored in data structure, and
-	 * look for the first match.
+	 * Lowest common ancestor in a binary tree can be found by checking
+	 * every parent of both the first and second node and comparing if they
+	 * shared a common parent. If so the lowest common ancestor is the one
+	 * they shared first.
 	 */
-	while (first != NULL)
-		fp[i] = first->parent, first = first->parent, i++;
-	while (second != NULL)
-		sp[j] = second->parent, second = second->parent, j++;
-	k = (i > j) ? j : i;
-	while (m < k)
+	while (first->parent != NULL)
 	{
-		n = 0;
-		while (n < k)
+		while (second->parent != NULL)
 		{
-			if (fp[m] == sp[n])
-				return (fp[m]);
-			n++;
+			if (first == second->parent)
+				return (second->parent);
+			if (second == first->parent)
+				return (first->parent);
+			if (first->parent == second->parent)
+				return (first->parent);
+			second = second->parent;
 		}
-		m++;
+		first = first->parent;
 	}
 	return (NULL);
 }
