@@ -15,18 +15,20 @@ binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
 
 	if (!first || !second)
 		return (NULL);
-	if (first->parent == NULL || second->parent == NULL)
+	if (first == second)
 		return (first->parent);
+	if (!second->parent)
+		return (NULL);
 	/**
 	 * Lowest common ancestor in a binary tree can be found by checking
 	 * every parent of both the first and second node and comparing if they
 	 * shared a common parent. If so the lowest common ancestor is the one
 	 * they shared first.
 	 */
-	while (first->parent != NULL)
+	while (first->parent)
 	{
 		tmp = second;
-		while (tmp->parent != NULL)
+		while (tmp->parent)
 		{
 			if (first == tmp->parent)
 				return (tmp->parent);
